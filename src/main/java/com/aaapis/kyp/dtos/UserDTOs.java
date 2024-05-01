@@ -11,5 +11,5 @@ public class UserDTOs {
     private String name;
     private String password;
 
-    private Enum<UserRole> userRole;
+    private UserRole userRole;
 }
