@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location,Long> {
-    @Override
     Optional<Location> findById(Long locationId);
 }
