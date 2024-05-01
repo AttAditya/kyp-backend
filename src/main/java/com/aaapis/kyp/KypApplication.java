@@ -8,6 +8,8 @@ public class KypApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KypApplication.class, args);
+
 	}
 
 }
+
