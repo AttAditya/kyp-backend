@@ -15,4 +15,5 @@ public class Restaurant {
     private String name;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Table> tables;
+    private String description;
 }

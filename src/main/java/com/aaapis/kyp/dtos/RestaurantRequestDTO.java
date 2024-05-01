@@ -8,4 +8,5 @@ import lombok.Setter;
 public class RestaurantRequestDTO {
     private String name;
     private String description;
+    private int tableCount;
 }

@@ -1,5 +1,6 @@
 package com.aaapis.kyp.services.restaurantServiceIMPL;
 
+import com.aaapis.kyp.dtos.RestaurantRequestDTO;
 import com.aaapis.kyp.exceptions.RestaurantNotFoundException;
 import com.aaapis.kyp.models.Restaurant;
 import com.aaapis.kyp.models.Table;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.aaapis.kyp.repositories.RestaurantRepository;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +19,9 @@ public class RestaurantService implements IRestaurantService {
     private RestaurantRepository restaurantRepository;
     private TableRepository tableRepository;;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository,TableRepository tableRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.tableRepository = tableRepository;
     }
 
     @Override
@@ -40,35 +43,28 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public Restaurant createRestaurant(Restaurant restaurant) {
-        List<Table> tables = restaurant.getTables();
+    public Restaurant createRestaurant(RestaurantRequestDTO restaurantRequestDTO) {
+        Restaurant restaurant = new Restaurant();
 
-        for (Table table : tables) {
-            if(table.getId() == null) {
-                tableRepository.save(table);
-            }
+        List<Table> tables = new ArrayList<>();
+
+        for (int i = 0 ; i<restaurantRequestDTO.getTableCount(); i++) {
+            Table table = new Table();
+            table.setTableNumber(i+1);
+            table.setAvailable(true);
+            tables.add( tableRepository.save(table));
         }
-        if(restaurant.getId() == null) {
-            restaurantRepository.save(restaurant);
-        }
-        return restaurant;
+        restaurant.setDescription(restaurantRequestDTO.getDescription());
+        restaurant.setTables(tables);
+        restaurant.setName(restaurantRequestDTO.getName());
+
+        return restaurantRepository.save(restaurant);
     }
 
+
     @Override
-    public Restaurant updateRestaurant(Restaurant restaurant) {
-        List<Table> tables = restaurant.getTables();
-
-        for (Table table : tables) {
-            if(table.getId() == null) {
-                tableRepository.save(table);
-            }
-        }
-
-        if(restaurant.getId() == null) {
-            restaurantRepository.save(restaurant);
-        }
-
-        return restaurant;
+    public Restaurant updateRestaurant(RestaurantRequestDTO restaurantRequestDTO) {
+        return null;
     }
 
     @Override
