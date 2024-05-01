@@ -1,4 +1,4 @@
-package com.aaapis.kyp.Controllers;
+package com.aaapis.kyp.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
