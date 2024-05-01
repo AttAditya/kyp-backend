@@ -1,9 +1,10 @@
 package com.aaapis.kyp.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.aaapis.kyp.models.Table;
+import lombok.*;
+
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,9 +13,10 @@ import lombok.Setter;
 public class BookingRequestDTO {
     private Long userId;
     private Long restaurantId;
-    private String bookingDate;
+    private Date bookingDate;
     private String bookingTime;
     private Integer numberOfPeople;
+    private List<Long> tableIds;
 //    private String specialRequest;
 
 
