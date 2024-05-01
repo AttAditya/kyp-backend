@@ -23,5 +23,4 @@ public class Reservation {
     private Employee table_assistant;
     @ManyToOne
     private Table table;
-
 }

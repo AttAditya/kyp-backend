@@ -4,5 +4,6 @@ public enum Department {
     KITCHEN,
     WAITSTAFF,
     HOST,
-    MANAGER
+    MANAGER,
+    TABLLE_ASSISTANT
 }

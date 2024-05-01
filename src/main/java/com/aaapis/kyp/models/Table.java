@@ -15,7 +15,7 @@ public class Table {
     private Long tableNumber;
     private int capacity;
     @OneToMany(fetch = FetchType.LAZY)
-    List<Reservation> reservations;
+    private List<Reservation> reservations;
     @OneToOne
     private Location location;
 }

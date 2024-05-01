@@ -21,5 +21,5 @@ public class Customer {
     private String email;
     private String role;
     @ManyToMany(fetch = FetchType.LAZY)
-    List<Reservation> reservationHistory;
+    private List<Reservation> reservationHistory;
 }
