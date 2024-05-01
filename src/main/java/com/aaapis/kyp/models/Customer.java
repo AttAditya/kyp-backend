@@ -8,18 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
-@Entity(name = "Customer")
 @Getter
 @Setter
-public class Customer {
+@Entity(name = "Customer")
+public class Customer extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String userId;
-    private String password;
-    private String Name;
-    private String email;
-    private String role;
+
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Reservation> reservationHistory;
 }
