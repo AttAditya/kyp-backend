@@ -8,12 +8,12 @@ import jakarta.persistence.Id;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String userId;
-    String password;
-    String Name;
-    String email;
-    String phoneNumber;
-    Department department;
-    String role;
+    private Long id;
+    private String userId;
+    private String password;
+    private String Name;
+    private String email;
+    private String phoneNumber;
+    private Department department;
+    private String role;
 }
