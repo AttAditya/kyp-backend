@@ -14,5 +14,5 @@ public class Employee extends User {
     private Long id;
 
     private Department department;
-    private String role;
+    private String designation;
 }

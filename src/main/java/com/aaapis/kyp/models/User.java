@@ -1,5 +1,6 @@
 package com.aaapis.kyp.models;
 
+import com.aaapis.kyp.enums.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +14,5 @@ public class User {
     private String email;
     private String phoneNumber;
     private String token;
+    private UserRole role;
 }
