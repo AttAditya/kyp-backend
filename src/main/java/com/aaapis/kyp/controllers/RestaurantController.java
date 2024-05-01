@@ -16,6 +16,7 @@ public class RestaurantController {
         return ResponseEntity.ok().build();
     }
 
+    // Admin Actions Endpoints
     @GetMapping("/{id}")
     public ResponseEntity<?> getRestaurantById(@PathVariable Long id) {
         // Implement user login logic here
