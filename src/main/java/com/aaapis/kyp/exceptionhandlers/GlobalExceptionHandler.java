@@ -1,10 +1,7 @@
 package com.aaapis.kyp.exceptionhandlers;
 
 import com.aaapis.kyp.dtos.ExceptionDTO;
-import com.aaapis.kyp.exceptions.InvalidBookingException;
-import com.aaapis.kyp.exceptions.InvalidPasswordException;
-import com.aaapis.kyp.exceptions.RestaurantNotFoundException;
-import com.aaapis.kyp.exceptions.UserNotFoundException;
+import com.aaapis.kyp.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -49,4 +46,14 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ExceptionDTO> handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
+
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.CONFLICT);
+    }
+
 }
