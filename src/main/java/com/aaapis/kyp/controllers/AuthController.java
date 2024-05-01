@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthControllers {
+public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody UserDTOs request) {
