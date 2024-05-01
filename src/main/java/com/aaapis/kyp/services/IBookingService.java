@@ -5,8 +5,7 @@ import com.aaapis.kyp.models.Reservation;
 import java.util.List;
 
 public interface IBookingService {
-    List<Reservation> getBookings();
-    List<Reservation> getBookingsByName(String userName);
+    List<Reservation> getBookings(Long customerId);
     Reservation getBookingById(Long bookingId);
     Reservation createBooking(Reservation reservation);
     Reservation updateBooking(Reservation reservation);
