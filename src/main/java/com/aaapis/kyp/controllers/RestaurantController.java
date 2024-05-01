@@ -30,7 +30,7 @@ public class RestaurantController {
         return ResponseEntity.ok(restaurantService.getRestaurantById(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> createRestaurant(@RequestBody RestaurantRequestDTO request) {
         // Implement user login logic here
 
