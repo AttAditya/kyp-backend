@@ -55,6 +55,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.CONFLICT);
     }
+    
     @ExceptionHandler(EmptyGuestListException.class)
     public ResponseEntity<ExceptionDTO> handleEmptyGuestListException(EmptyGuestListException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
@@ -63,5 +64,4 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
-
 }
