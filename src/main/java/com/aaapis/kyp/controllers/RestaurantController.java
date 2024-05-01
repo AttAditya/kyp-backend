@@ -31,6 +31,21 @@ public class RestaurantController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateRestaurant(@PathVariable Long id, @RequestBody RestaurantRequestDTO request) {
+        // Implement user login logic here
+        System.out.println(id + " got this from user as restaurant id");
+        System.out.println(request.getName() + " got this from user");
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRestaurant(@PathVariable Long id) {
+        // Implement user login logic here
+        System.out.println(id + " got this from user as restaurant id");
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }
