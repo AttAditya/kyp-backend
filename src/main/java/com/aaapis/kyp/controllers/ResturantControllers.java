@@ -1,9 +1,19 @@
 package com.aaapis.kyp.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.aaapis.kyp.dtos.UserDTOs;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/resturants")
+@RequestMapping("/restaurants")
 public class ResturantControllers {
+
+    @GetMapping("/{name}")
+
+    public ResponseEntity<?> getRestaurants(@PathVariable String name) {
+        // Implement user login logic here
+        System.out.println(name + "got this from user");
+        return ResponseEntity.ok().build();
+    }
+
 }
