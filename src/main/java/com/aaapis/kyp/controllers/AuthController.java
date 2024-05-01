@@ -25,7 +25,12 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-
+    @PostMapping("/logout")
+    public ResponseEntity<?> userLogout(@RequestBody UserDTOs request) {
+        // Implement user login logic here
+        System.out.println(request.getName() + " got this from user");
+        return ResponseEntity.ok().build();
+    }
 
 
 }
