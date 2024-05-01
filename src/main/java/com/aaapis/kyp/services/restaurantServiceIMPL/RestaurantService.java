@@ -1,5 +1,6 @@
 package com.aaapis.kyp.services.restaurantServiceIMPL;
 
+import com.aaapis.kyp.exceptions.RestaurantNotFoundException;
 import com.aaapis.kyp.models.Restaurant;
 import com.aaapis.kyp.models.Table;
 import com.aaapis.kyp.services.IRestaurantService;
@@ -23,7 +24,7 @@ public class RestaurantService implements IRestaurantService {
     public List<Restaurant> getRestaurantsByName(String restaurantName) {
         Optional<List<Restaurant>> optionalRestaurant = Optional.ofNullable(restaurantRepository.findByName(restaurantName));
         if(optionalRestaurant.isEmpty()) {
-            throw new restaurantNotFoundException(restaurantName, "Please pass a valid restaurantName");
+            throw new RestaurantNotFoundException(restaurantName+ " not found. Please pass a valid restaurant Name");
         }
         return optionalRestaurant.get();
     }
@@ -32,7 +33,7 @@ public class RestaurantService implements IRestaurantService {
     public Restaurant getRestaurantById(Long restaurantId) {
         Optional<Restaurant> optionLProduct = restaurantRepository.findById(restaurantId);
         if (optionLProduct.isEmpty()) {
-            throw new restaurantNotFoundException(restaurantId, "Please pass a valid restaurantId");
+            throw new RestaurantNotFoundException("Restaurant not found. Please pass a valid restaurantId");
         }
         return optionLProduct.get();
     }
@@ -46,9 +47,6 @@ public class RestaurantService implements IRestaurantService {
                 tableRepository.save(table);
             }
         }
-
-
-
 
     }
 
