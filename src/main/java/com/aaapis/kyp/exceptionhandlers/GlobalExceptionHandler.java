@@ -10,12 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Date;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ExceptionDTO> handleUserNotFoundException(UserNotFoundException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
@@ -24,6 +27,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionDTO> handleRestaurantNotFoundException(RestaurantNotFoundException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
@@ -32,6 +36,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionDTO> handleInvalidBookingException(InvalidBookingException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
@@ -40,6 +45,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionDTO> handleInvalidPasswordException(InvalidPasswordException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
