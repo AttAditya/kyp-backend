@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface TableRepository extends JpaRepository<Table,Long> {
+public interface TableRepository extends JpaRepository<Table, Long> {
     Optional<Table> findById(Long tableId);
 }
