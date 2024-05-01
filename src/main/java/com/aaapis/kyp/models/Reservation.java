@@ -3,24 +3,25 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "reservation")
+@Entity(name = "Reservation")
 public class Reservation {
     @Id
-    @GeneratedValue(stratergy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date startTime;
     private Date endTime;
     @ManyToMany
     private List<Customer> guests;
+    @ManyToOne
     private Customer billing_customer;
-    private Employee employee;
+    @ManyToOne
+    private Employee table_assistant;
+    @ManyToOne
     private Table table;
 
 }

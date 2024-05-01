@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
-@Entity
+@Entity(name = "Customer")
 @Getter
 @Setter
 public class Customer {
@@ -16,10 +16,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userId;
-    String password;
-    String Name;
-    String email;
-    String role;
+    private String password;
+    private String Name;
+    private String email;
+    private String role;
     @ManyToMany(fetch = FetchType.LAZY)
     List<Reservation> reservationHistory;
 }
