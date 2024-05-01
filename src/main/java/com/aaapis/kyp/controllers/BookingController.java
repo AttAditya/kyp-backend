@@ -3,6 +3,7 @@ package com.aaapis.kyp.controllers;
 import com.aaapis.kyp.dtos.BookingRequestDTO;
 import com.aaapis.kyp.models.Reservation;
 import com.aaapis.kyp.services.bookingServiceIMPL.BookingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +18,14 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getBookings(@RequestParam(name = "userid", defaultValue = "", required = false) Long userId) {
-        // Implement user login logic here
-        System.out.println("return the bookings of this user with " + userId);
-        return ResponseEntity.ok().build();
+    @GetMapping("/search/{userid}")
+    public ResponseEntity<?> getBookings(@PathVariable("userid") Long userId) {
+        // Returns the list of bookings for a user
+
+        System.out.println(userId + " got this from user");
+
+        return ResponseEntity.ok(bookingService.getBookings(userId));
+
     }
 
     // Admin Actions Endpoints
@@ -40,17 +44,18 @@ public class BookingController {
     }
 
     @PutMapping("/{reservationId}")
-    public ResponseEntity<?> updateBooking(@PathVariable Long reservationId, @RequestBody BookingRequestDTO request) {
-        // Implement user login logic here
+    public ResponseEntity<?> updateBooking(@PathVariable("reservationId") Long reservationId, @RequestBody BookingRequestDTO request) {
         System.out.println(reservationId + " got this from user as booking id");
-        System.out.println(request.getBookingTime() + " got this from user");
-        return ResponseEntity.ok().build();
+        System.out.println(request.toString() + " got this from user as booking request");
+        Reservation reservation = bookingService.mapToReservation(request);
+        reservation.setId(reservationId);
+        return ResponseEntity.ok(bookingService.updateBooking(reservation));
     }
 
     @DeleteMapping("/{reservationId}")
     public ResponseEntity<?> deleteBooking(@PathVariable Long reservationId) {
-        // Implement user login logic here
         System.out.println(reservationId + " got this from user as booking id");
+        bookingService.cancelBooking(reservationId);
         return ResponseEntity.ok().build();
     }
 

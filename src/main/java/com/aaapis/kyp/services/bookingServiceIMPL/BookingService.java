@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service("V1BookingService")
 public class BookingService implements IBookingService {
@@ -29,8 +30,12 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public List<Reservation> getBookings(Long customerId) {
-        return List.of();
+    public List<Reservation> getBookings(Long userId) {
+
+        if(userId == null) {
+            throw new IllegalArgumentException("User Id is required");
+        }
+        return reservationRepository.findByUserId(userId);
     }
 
     @Override
@@ -49,16 +54,23 @@ public class BookingService implements IBookingService {
 
     @Override
     public Reservation updateBooking(Reservation reservation) {
-        return null;
+        System.out.println("Updating booking");
+        return reservationRepository.save(reservation);
     }
 
     @Override
     public Reservation cancelBooking(Long bookingId) {
-        return null;
+        Optional<Reservation> reservation = reservationRepository.findById(bookingId);
+
+        if (reservation.isEmpty()) {
+            throw new RuntimeException("Reservation not found: " + bookingId);
+        }
+
+        reservationRepository.deleteById(bookingId);
+        return reservation.get();
     }
 
     public Reservation mapToReservation(BookingRequestDTO booking) {
-
 
         Reservation reservation = new Reservation();
         reservation.setBookingDate(booking.getBookingDate());
