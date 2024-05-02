@@ -13,8 +13,8 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date bookingDate;
-    private String bookingTime;
+    private Date startTime;
+    private Date finishTime;
 
     @ManyToOne
     private Restaurant restaurant;
@@ -22,7 +22,7 @@ public class Reservation {
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    private List<Table> tables;
+    @ManyToOne
+    private Table table;
 
 }

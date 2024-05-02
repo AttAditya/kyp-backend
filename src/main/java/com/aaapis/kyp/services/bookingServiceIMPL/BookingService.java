@@ -1,8 +1,13 @@
 package com.aaapis.kyp.services.bookingServiceIMPL;
 
 import com.aaapis.kyp.dtos.BookingRequestDTO;
+import com.aaapis.kyp.exceptions.RestaurantNotFoundException;
+import com.aaapis.kyp.exceptions.TableNotFoundException;
+import com.aaapis.kyp.exceptions.UserNotFoundException;
 import com.aaapis.kyp.models.Reservation;
+import com.aaapis.kyp.models.Restaurant;
 import com.aaapis.kyp.models.Table;
+import com.aaapis.kyp.models.User;
 import com.aaapis.kyp.repositories.ReservationRepository;
 import com.aaapis.kyp.repositories.RestaurantRepository;
 import com.aaapis.kyp.repositories.TableRepository;
@@ -10,7 +15,6 @@ import com.aaapis.kyp.repositories.UserRepository;
 import com.aaapis.kyp.services.IBookingService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,20 +75,57 @@ public class BookingService implements IBookingService {
     }
 
     public Reservation mapToReservation(BookingRequestDTO booking) {
-
         Reservation reservation = new Reservation();
-        reservation.setBookingDate(booking.getBookingDate());
-        reservation.setRestaurant(restaurantRepository.findById(booking.getRestaurantId()).orElseThrow());
-        reservation.setBookingTime(booking.getBookingTime());
-        reservation.setUser(userRepository.findById(booking.getUserId()).orElseThrow());
 
-        List<Table> tables = new ArrayList<>();
+        System.out.println("Booking Request: " + booking);
 
-        for(Long tableId : booking.getTableIds()) {
-            Table table = tableRepository.findById(tableId).orElseThrow();
-            tables.add(table);
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(booking.getRestaurantId());
+
+        if (optionalRestaurant.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant not found: " + booking.getRestaurantId());
         }
-        reservation.setTables(tables);
-        return reservation;
+
+        reservation.setRestaurant(optionalRestaurant.get());
+
+        System.out.println("Booking Start Time: " + booking.getStartTime());
+        System.out.println("Booking End Time: " + booking.getFinishTime());
+
+        reservation.setStartTime(booking.getStartTime());
+        reservation.setFinishTime(booking.getFinishTime());
+
+        Optional<User> optionalUser = userRepository.findById(booking.getUserId());
+
+        if (optionalUser.isEmpty()) {
+            throw new UserNotFoundException("User not found: " + booking.getUserId());
+        }
+
+        System.out.println("User: " + booking.getUserId());
+
+        User user = optionalUser.get();
+        user.getHistory().add(reservation);
+        reservation.setUser(user);
+
+        System.out.println("Table: " + booking.getTableId());
+
+        Optional<Table> optionalTable = tableRepository.findById(booking.getTableId());
+
+        if (optionalTable.isEmpty()) {
+            throw new TableNotFoundException("Table not found: " + booking.getTableId());
+        }
+
+        Table table = optionalTable.get();
+        table.getReservations().add(reservation);
+
+        System.out.println("Found Table: " + table);
+
+        reservation.setTable(table);
+
+//        Table table_ = tableRepository.save(table);
+//        System.out.println("Saved Table: " + table_);
+
+//        User user_ = userRepository.save(user);
+//        System.out.println("Saved User: " + user_);
+
+        return reservationRepository.save(reservation);
     }
 }

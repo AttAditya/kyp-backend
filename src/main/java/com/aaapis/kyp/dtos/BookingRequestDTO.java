@@ -13,11 +13,8 @@ import java.util.List;
 public class BookingRequestDTO {
     private Long userId;
     private Long restaurantId;
-    private Date bookingDate;
-    private String bookingTime;
+    private Date startTime;
+    private Date finishTime;
     private Integer numberOfPeople;
-    private List<Long> tableIds;
-//    private String specialRequest;
-
-
+    private Long tableId;
 }
