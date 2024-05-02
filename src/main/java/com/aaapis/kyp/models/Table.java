@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
 @Getter
 @Setter
 @Entity(name = "SittingTable")
@@ -13,10 +14,11 @@ public class Table {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int tableNumber;
-//    private int capacity;
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<Reservation> reservations;
+    private int capacity;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Reservation> reservations;
+
 //    @OneToOne
 //    private Location location;
-    private boolean isAvailable;
 }

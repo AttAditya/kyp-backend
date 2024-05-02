@@ -34,7 +34,7 @@ public class RestaurantController {
     public ResponseEntity<?> createRestaurant(@RequestBody RestaurantRequestDTO request) {
         // Implement user login logic here
 
-        System.out.println(request.getTableCount()+"" +request.getName()  + " got this from user");
+        System.out.println(request.getName()  + " got this from user");
 
         return ResponseEntity.ok(restaurantService.createRestaurant(request));
     }
