@@ -64,8 +64,18 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(exceptionDTO, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(TableNotFoundException.class)
     public ResponseEntity<ExceptionDTO> handleTableNotFoundException(TableNotFoundException exception) {
+        ExceptionDTO exceptionDTO = new ExceptionDTO();
+        exceptionDTO.setMessage(exception.getMessage());
+        exceptionDTO.setTime(new Date());
+
+        return new ResponseEntity<>(exceptionDTO, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TableAlreadyExistsException.class)
+    public ResponseEntity<ExceptionDTO> handleTableNotFoundException(TableAlreadyExistsException exception) {
         ExceptionDTO exceptionDTO = new ExceptionDTO();
         exceptionDTO.setMessage(exception.getMessage());
         exceptionDTO.setTime(new Date());

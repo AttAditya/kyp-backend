@@ -1,5 +1,6 @@
 package com.aaapis.kyp.services;
 
+import com.aaapis.kyp.dtos.AddTableDTO;
 import com.aaapis.kyp.dtos.RestaurantRequestDTO;
 import com.aaapis.kyp.models.Restaurant;
 
@@ -10,5 +11,6 @@ public interface IRestaurantService {
     Restaurant getRestaurantById(Long restaurantId);
     Restaurant createRestaurant(RestaurantRequestDTO restaurantRequestDTO);
     Restaurant updateRestaurant(RestaurantRequestDTO restaurantRequestDTO);
-    Restaurant deleteRestaurant(Long restaurantId);
+    void deleteRestaurant(Long restaurantId);
+    Restaurant addTable(Long restaurantId, AddTableDTO addTableDTO);
 }

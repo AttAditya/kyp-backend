@@ -1,7 +1,10 @@
 package com.aaapis.kyp.services.restaurantServiceIMPL;
 
+import com.aaapis.kyp.dtos.AddTableDTO;
 import com.aaapis.kyp.dtos.RestaurantRequestDTO;
 import com.aaapis.kyp.exceptions.RestaurantNotFoundException;
+import com.aaapis.kyp.exceptions.TableAlreadyExistsException;
+import com.aaapis.kyp.exceptions.TableNotFoundException;
 import com.aaapis.kyp.models.Restaurant;
 import com.aaapis.kyp.models.Table;
 import com.aaapis.kyp.repositories.TableRepository;
@@ -62,12 +65,38 @@ public class RestaurantService implements IRestaurantService {
     }
 
     @Override
-    public Restaurant deleteRestaurant(Long restaurantId) {
+    public void deleteRestaurant(Long restaurantId) {
         Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
         if(optionalRestaurant.isEmpty()) {
             throw new RestaurantNotFoundException("Restaurant not found. Please pass a valid restaurantId");
         }
         restaurantRepository.deleteById(restaurantId);
-        return optionalRestaurant.get();
+    }
+
+    @Override
+    public Restaurant addTable(Long restaurantId, AddTableDTO addTableDTO) {
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findById(restaurantId);
+
+        if(optionalRestaurant.isEmpty()) {
+            throw new RestaurantNotFoundException("Restaurant not found: " + restaurantId);
+        }
+
+        Optional<Table> optionalTable = tableRepository.findById(addTableDTO.getTableId());
+
+        if(optionalTable.isEmpty()) {
+            throw new TableNotFoundException("Table not found: " + addTableDTO.getTableId());
+        }
+
+        Restaurant restaurant = optionalRestaurant.get();
+        Table table = optionalTable.get();
+
+        for (Table existingTable : restaurant.getTables()) {
+            if (existingTable.getId().equals(table.getId())) {
+                throw new TableAlreadyExistsException("Table already exists: " + existingTable.getId());
+            }
+        }
+
+        restaurant.getTables().add(table);
+        return restaurantRepository.save(restaurant);
     }
 }
