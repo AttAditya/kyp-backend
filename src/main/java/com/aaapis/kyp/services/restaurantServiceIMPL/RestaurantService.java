@@ -16,8 +16,8 @@ import java.util.Optional;
 
 @Service("V1RestaurantService")
 public class RestaurantService implements IRestaurantService {
-    private RestaurantRepository restaurantRepository;
-    private TableRepository tableRepository;;
+    private final RestaurantRepository restaurantRepository;
+    private final TableRepository tableRepository;
 
     public RestaurantService(RestaurantRepository restaurantRepository,TableRepository tableRepository) {
         this.restaurantRepository = restaurantRepository;
@@ -48,12 +48,6 @@ public class RestaurantService implements IRestaurantService {
 
         List<Table> tables = new ArrayList<>();
 
-        for (int i = 0 ; i<restaurantRequestDTO.getTableCount(); i++) {
-            Table table = new Table();
-            table.setTableNumber(i+1);
-            table.setAvailable(true);
-            tables.add( tableRepository.save(table));
-        }
         restaurant.setDescription(restaurantRequestDTO.getDescription());
         restaurant.setTables(tables);
         restaurant.setName(restaurantRequestDTO.getName());
