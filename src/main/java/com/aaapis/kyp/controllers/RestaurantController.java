@@ -1,5 +1,6 @@
 package com.aaapis.kyp.controllers;
 
+import com.aaapis.kyp.dtos.AddTableDTO;
 import com.aaapis.kyp.dtos.RestaurantRequestDTO;
 import com.aaapis.kyp.services.IRestaurantService;
 import org.springframework.http.ResponseEntity;
@@ -51,9 +52,13 @@ public class RestaurantController {
     public ResponseEntity<?> deleteRestaurant(@PathVariable Long id) {
         // Implement user login logic here
         System.out.println(id + " got this from user as restaurant id");
-        return ResponseEntity.ok(restaurantService.deleteRestaurant(id));
+        restaurantService.deleteRestaurant(id);
+        return ResponseEntity.ok().build();
     }
 
-
-
+    @PostMapping("/{restaurantId}/table")
+    public ResponseEntity<?> createTable(@PathVariable("restaurantId") Long restaurantId, @RequestBody AddTableDTO request) {
+        System.out.println("Received add table request: " + request);
+        return ResponseEntity.ok(restaurantService.addTable(restaurantId, request));
+    }
 }
